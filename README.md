@@ -7,6 +7,7 @@ ATILRuntime 是在Unity编译器下进行ILRuntime开发的一组自动化工具
 - [自动绑定](#自动绑定)
 - [热更工程单元测试](#热更工程单元测试)
 - [主工程Bug修复](#主工程Bug修复)
+- [优化与建议](#优化与建议)
 
 ## 测试环境
 Unity 2018.2.17f1 .NET Runtime4.X
@@ -23,6 +24,11 @@ Unity 2018.2.17f1 .NET Runtime4.X
 - 有一种异常情况，比如一个类实现了一个接口的方法，但是这个方法时virtual,在生成适配器时，在同一个文件中会自动为这个接口也生成适配器(可能重复，重复删掉即可，这也是上一条建议的原因)
 
 ![委托生成器](https://github.com/SixGodZhang/ATILRuntime/blob/master/Images/delegate.png)
+
+### 白名单
+白名单如下图所示,所有在白名单中定义的类型或接口,将会自动生成适配器.下图白名单以树形图展示，方便查阅.
+![白名单](https://github.com/SixGodZhang/ATILRuntime/blob/master/Images/whitelist.png)
+
 
 ## 自动绑定
 采用的自动分析功能来实现的自动绑定
@@ -43,6 +49,12 @@ Unity 2018.2.17f1 .NET Runtime4.X
 ![注册修复的方法](https://github.com/SixGodZhang/ATILRuntime/blob/master/Images/register.png)
 
 ![功能](https://github.com/SixGodZhang/ATILRuntime/blob/master/Images/function.png)
+
+## 优化与建议
+- 提供白名单的可视化添加
+- 完善单元测试的类型
+- 目前Bug修复，只能修复主工程的方法.后期添加对字段、属性的修改
+
 
 ## 结尾
 测试用例还比较少，有些内容不够完善，之后我会慢慢完善这些内容,若有任何疑问，欢迎大家提 issue
