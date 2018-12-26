@@ -1,0 +1,29 @@
+
+using System;
+
+namespace {$Namespace}
+{
+    public class ILRuntimeHelper
+    {
+        public static void Init(ILRuntime.Runtime.Enviorment.AppDomain app)
+        {
+            if (app == null)
+            {
+                // should log error
+                return;
+            }
+
+			// adaptor register 
+            {$AdaptorInit}   
+
+			// interface adaptor register
+			{$InterfaceAdaptorInit}
+
+			// delegate register 
+			{$DelegateRegInit}
+
+			// delegate convertor
+            {$DelegateInit}
+        }
+    }
+}

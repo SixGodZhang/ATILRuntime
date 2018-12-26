@@ -1,0 +1,23 @@
+
+using System;
+
+namespace {$Namespace}
+{
+    public partial class BugfixHelper
+    {
+        public static void Init(ILRuntime.Runtime.Enviorment.AppDomain app)
+        {
+            if (app == null)
+            {
+                // should log error
+                return;
+            }
+
+			// delegate register 
+			{$DelegateRegInit}
+
+			// delegate convertor
+            {$DelegateInit}
+        }
+    }
+}

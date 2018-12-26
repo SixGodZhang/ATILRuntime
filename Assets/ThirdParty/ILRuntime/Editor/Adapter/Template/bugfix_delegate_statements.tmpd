@@ -1,0 +1,10 @@
+using System;
+
+namespace {$Namespace}
+{
+    public class BugfixDelegateStatements
+    {
+			// delegate register 
+			{$DelegateStatements}
+    }
+}

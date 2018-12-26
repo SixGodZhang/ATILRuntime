@@ -1,0 +1,11 @@
+
+            IMethod m{$MethodName};
+            public void {$MethodName}({$args})
+            {
+                if(m{$MethodName} == null)
+                {
+                    m{$MethodName} = instance.Type.GetMethod("{$MethodName}", {$args_count});
+                }
+                if (m{$MethodName} != null)
+                    appdomain.Invoke(m{$MethodName}, instance {$comma}{$args_no_type});
+            }

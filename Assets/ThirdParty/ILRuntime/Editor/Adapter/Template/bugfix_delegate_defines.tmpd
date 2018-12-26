@@ -1,0 +1,7 @@
+using System;
+
+namespace {$Namespace}
+{
+    // delegate register 
+	{$DelegateDefines}
+}

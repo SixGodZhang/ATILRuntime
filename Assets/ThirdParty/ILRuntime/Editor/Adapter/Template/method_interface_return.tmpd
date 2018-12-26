@@ -1,0 +1,18 @@
+
+            IMethod m{$MethodName};
+            public {$returnType} {$MethodName}({$args})
+            {
+                if(m{$MethodName} == null)
+                {
+                    m{$MethodName} = instance.Type.GetMethod("{$MethodName}", {$args_count});
+                }
+
+                if (m{$MethodName} != null)
+                {
+					return ({$returnType})appdomain.Invoke(m{$MethodName}, instance {$comma}{$args_no_type});
+                }
+                
+                {$returnDefault}
+            }
+
+
