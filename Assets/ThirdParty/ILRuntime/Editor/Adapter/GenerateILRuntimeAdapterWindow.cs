@@ -492,7 +492,7 @@ namespace GameFramework.Taurus
                     var module = ModuleDefinition.ReadModule(fs);
                     foreach (var typeDefinition in module.Types)
                     {
-                        //如果是Debug类型的，需要手动注册并且转换
+                        //忽略Bugfix模式的下的委托实例的适配器生成
                         if (typeDefinition.Namespace == "Hotfix.Hotfix.Bugfix")
                             continue;
 
