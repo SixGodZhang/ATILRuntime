@@ -1,7 +1,6 @@
+{$References}
 
-using System;
-
-namespace {$Namespace}
+namespace ILRuntime
 {
     public class ILRuntimeHelper
     {

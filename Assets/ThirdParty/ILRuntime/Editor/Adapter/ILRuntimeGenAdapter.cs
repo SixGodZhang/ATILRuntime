@@ -69,7 +69,7 @@ public class ILRuntimeGenAdapter
     /// </summary>
     private void LoadTemplates()
     {
-        var tmpdPath = Application.dataPath + "/ThirdParty/ILRuntime/Adapters/Editor/Adapter/Template";
+        var tmpdPath = PathConfig.GetPath(ILPath.TemplatePath);//Application.dataPath + "/ThirdParty/ILRuntime/Adapters/Editor/Adapter/Template";
         _interfaceAdapterGenerator = new InterfaceAdapterGenerator();
         _interfaceAdapterGenerator.LoadTemplateFromFile(tmpdPath + "adaptor_single_interface.tmpd");
 

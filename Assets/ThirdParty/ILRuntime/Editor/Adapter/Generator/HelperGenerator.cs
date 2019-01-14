@@ -37,13 +37,13 @@ namespace CodeGenerationTools.Generator
             if (data.Item4 == null)
                 return false;
 
-            string nsStr = null;
+            HashSet<string> nsSet = new HashSet<string>();
 
             var adptorStr = "";
             foreach (var type in data.Item1.Values)
             {
-                if (nsStr == null)
-                    nsStr = type.Namespace;
+                if (!string.IsNullOrWhiteSpace(type.Namespace))
+                    nsSet.Add(type.Namespace);
                 adptorStr += CreateAdaptorInit(type);
             }
             SetKeyValue("{$AdaptorInit}", adptorStr);
@@ -51,8 +51,8 @@ namespace CodeGenerationTools.Generator
             var delegateStr = "";
             foreach (var type in data.Item2.Values)
             {
-                if (nsStr == null)
-                    nsStr = type.Namespace;
+                if (!string.IsNullOrWhiteSpace(type.Namespace))
+                    nsSet.Add(type.Namespace);
                 delegateStr += CreateDelegateConvertorInit(type);
             }
             SetKeyValue("{$DelegateInit}", delegateStr);
@@ -64,6 +64,8 @@ namespace CodeGenerationTools.Generator
 
             foreach (var val in dict.Values)
             {
+                if (!string.IsNullOrWhiteSpace(val.Namespace))
+                    nsSet.Add(val.Namespace);
                 delegateRegStr += CreateDelegateRegisterInit(val);
             }
             SetKeyValue("{$DelegateRegInit}", delegateRegStr);
@@ -71,11 +73,20 @@ namespace CodeGenerationTools.Generator
             var interfaceRegStr = "";
             foreach (var type in data.Item4.Values)
             {
+                if (!string.IsNullOrWhiteSpace(type.Namespace))
+                    nsSet.Add(type.Namespace);
                 interfaceRegStr += CreateAdaptorInit(type);
             }
             SetKeyValue("{$InterfaceAdaptorInit}", interfaceRegStr);
+            
+            StringBuilder nsStr = new StringBuilder();
+            foreach (var ns in nsSet)
+            {
+                nsStr.Append("using " + ns + ";\n");
+            }
 
-            SetKeyValue("{$Namespace}", string.IsNullOrWhiteSpace(nsStr)?"ILRuntime":nsStr);
+            //UnityEngine.Debug.Log(nsStr.ToString());
+            SetKeyValue("{$References}", nsStr.ToString());
 
             return true;
         }

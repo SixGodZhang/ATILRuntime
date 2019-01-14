@@ -52,7 +52,7 @@ namespace GameFramework.Taurus.UnityEditor
         #region 周期函数
         private void OnEnable()
         {
-            _hotfix_dll_path = EditorPrefs.GetString("hotfix_dll_path");
+            _hotfix_dll_path = PathConfig.GetPath(ILPath.ILAssemblyPath);
             _atTableWindow = new ATTabelWindow(UnitTests);
             _isLoadAssembly = false;
 
@@ -76,11 +76,11 @@ namespace GameFramework.Taurus.UnityEditor
 
             if (GUILayout.Button("select", GUILayout.Width(50), GUILayout.Height(20)))
             {
-                _hotfix_dll_path = EditorUtility.OpenFilePanelWithFilters("Hotfix Assembly", EditorPrefs.GetString("hotfixFolder"),
+                _hotfix_dll_path = EditorUtility.OpenFilePanelWithFilters("Hotfix Assembly", PathConfig.GetPath(ILPath.HotfixFolder),
                     new string[] { "BYTES", "bytes" });
                 if (!string.IsNullOrWhiteSpace(_hotfix_dll_path))
                 {
-                    EditorPrefs.SetString("hotfix_dll_path", _hotfix_dll_path);
+                    PathConfig.SetPath(ILPath.ILAssemblyPath, _hotfix_dll_path);
                 }
             }
 
@@ -167,7 +167,7 @@ namespace GameFramework.Taurus.UnityEditor
                     _isLoadAssembly = true;
 
                     //委托
-                    ILRuntimeHelper.Init(App);
+                    ILRuntime.ILRuntimeHelper.Init(App);
                     //绑定
                     ILRuntime.Runtime.Generated.CLRBindings.Initialize(App);
                 }

@@ -88,9 +88,9 @@ namespace GameFramework.Taurus
         #region 周期函数
         private void OnEnable()
         {
-            _out_path = EditorPrefs.GetString("out_path");
-            _main_assembly_path = EditorPrefs.GetString("main_assembly_path");
-            _il_assembly_path = EditorPrefs.GetString("il_assembly_path");
+            _out_path = PathConfig.GetPath(ILPath.AdapterOutputPath);
+            _main_assembly_path = PathConfig.GetPath(ILPath.MainAssemblyPath);
+            _il_assembly_path = PathConfig.GetPath(ILPath.ILAssemblyPath);
 
             //LogSet.Clear();
             _adaptorSingleInterfaceDic.Clear();
@@ -109,8 +109,10 @@ namespace GameFramework.Taurus
 
             if (GUILayout.Button("select", GUILayout.Width(50), GUILayout.Height(20)))
             {
-                _out_path = EditorUtility.OpenFolderPanel("选择文件夹", Application.dataPath + "/ThirdParty/ILRuntime/ILRuntime/Runtime", "");
-                EditorPrefs.SetString("out_path", _out_path);
+                string tempPath = Application.dataPath + "/ThirdParty/ILRuntime/ILRuntime";
+                tempPath = Directory.Exists(tempPath) ? tempPath : Application.dataPath;
+                _out_path = EditorUtility.OpenFolderPanel("选择文件夹", tempPath, "");
+                PathConfig.SetPath(ILPath.AdapterOutputPath, _out_path);
             }
 
             GUILayout.EndHorizontal();
@@ -122,7 +124,7 @@ namespace GameFramework.Taurus
                 _main_assembly_path = EditorUtility.OpenFilePanelWithFilters("选择主工程Assembly", path,
                     new string[] { "All files", "dll" });
                 if (!string.IsNullOrWhiteSpace(_main_assembly_path))
-                    EditorPrefs.SetString("main_assembly_path", _main_assembly_path);
+                    PathConfig.SetPath(ILPath.MainAssemblyPath, _main_assembly_path);
             }
 
             if (GUILayout.Button("Load", GUILayout.Width(50), GUILayout.Height(20)))
@@ -145,7 +147,7 @@ namespace GameFramework.Taurus
                     new string[] { "BYTES", "bytes" });
 
                 if (!string.IsNullOrWhiteSpace(_il_assembly_path))
-                    EditorPrefs.SetString("il_assembly_path", _il_assembly_path);
+                    PathConfig.SetPath(ILPath.ILAssemblyPath, _il_assembly_path);
             }
 
             if (GUILayout.Button("Load", GUILayout.Width(50), GUILayout.Height(20)))
@@ -235,10 +237,11 @@ namespace GameFramework.Taurus
         /// </summary>
         private void LoadTemplates()
         {
-            var tmpdPath = Application.dataPath + "/ThirdParty/ILRuntime/Editor/Adapter/Template/";
+            var tmpdPath = PathConfig.GetPath(ILPath.TemplatePath);//Application.dataPath + "/ThirdParty/ILRuntime/Editor/Adapter/Template/";
             _interfaceAdapterGenerator = new InterfaceAdapterGenerator();
             _interfaceAdapterGenerator.LoadTemplateFromFile(tmpdPath + "adaptor_single_interface.tmpd");
 
+            
             _adGenerator = new AdaptorGenerator();
             _adGenerator.LoadTemplateFromFile(tmpdPath + "adaptor.tmpd");
 
@@ -349,7 +352,7 @@ namespace GameFramework.Taurus
 
         private void LoadMainProjectAssemblyClick()
         {
-            var targetPath = EditorPrefs.GetString("main_assembly_path");
+            var targetPath = PathConfig.GetPath(ILPath.MainAssemblyPath);
 
             if (targetPath == "")
             {
@@ -444,7 +447,7 @@ namespace GameFramework.Taurus
         /// <param name="e"></param>
         private void LoadILScriptAssemblyClick()
         {
-            var mainProjPath = EditorPrefs.GetString("main_assembly_path");
+            var mainProjPath = PathConfig.GetPath(ILPath.MainAssemblyPath);
             if (string.IsNullOrWhiteSpace(mainProjPath))
             {//如果未指定主工程路径
                 if (EditorUtility.DisplayDialog("提示", "没有指定主工程路径,将只检测热更工程中的Action和Func并执行注册功能!", "ok", "cancal"))
@@ -473,7 +476,7 @@ namespace GameFramework.Taurus
 
             }
 
-            var targetPath = EditorPrefs.GetString("il_assembly_path");
+            var targetPath = PathConfig.GetPath(ILPath.ILAssemblyPath);
 
             if (targetPath == "")
             {

@@ -57,10 +57,10 @@ namespace GameFramework.Taurus
         [MenuItem("ILRuntime/Inject",false,310)]
         public static void InjectAssembly()
         {
-            string path = EditorPrefs.GetString("InjectAssembly");
+            string path = PathConfig.GetPath(ILPath.MainAssemblyPath);
             if (string.IsNullOrWhiteSpace(path))
             {
-                UnityEngine.Debug.LogError("InjectAssembly == null");
+                UnityEngine.Debug.LogError("main_assembly_path == null");
                 return;
             }
 
@@ -96,12 +96,9 @@ namespace GameFramework.Taurus
         [MenuItem("ILRuntime/Bugfix",false,300)]
         public static void GeneratorDelegates()
         {
-            string mainPath = EditorPrefs.GetString("InjectAssembly");
+            string mainPath = PathConfig.GetPath(ILPath.MainAssemblyPath);
             if (string.IsNullOrWhiteSpace(mainPath))
-            {
-                UnityEngine.Debug.Log("InjectAssembly == null");
-                return;
-            }
+                UnityEngine.Debug.Log("main_assembly_path == null");
 
             List<ProtectMethodInfo> protectMethods = LoadProtectMethods(mainPath);
 
@@ -135,12 +132,12 @@ namespace GameFramework.Taurus
                 }
             }
 
-            string out_path = EditorPrefs.GetString("out_path").Replace("Adapter", "Bugfix") + "/DelegateStatements.cs";
+            string out_path = PathConfig.GetPath(ILPath.AdapterOutputPath).Replace("Adapter", "Bugfix") + "/DelegateStatements.cs";
             if (File.Exists(out_path))
                 File.Delete(out_path);
 
             //模板路径
-            var tmpdPath = Application.dataPath + "/ThirdParty/ILRuntime/Editor/Adapter/Template/bugfix_delegate_statements.tmpd";
+            var tmpdPath = PathConfig.GetPath(ILPath.TemplatePath) + "bugfix_delegate_statements.tmpd"; //Application.dataPath + "/ThirdParty/ILRuntime/Editor/Adapter/Template/bugfix_delegate_statements.tmpd";
             BugfixFileManager manager = new BugfixFileManager(tmpdPath);
             manager.SetKeyValue("{$Namespace}", "ILRuntime");
             manager.SetKeyValue("{$DelegateStatements}", mis.ToString());
@@ -163,9 +160,9 @@ namespace GameFramework.Taurus
                 content.Append("public delegate " + returnStr + " " + @delegate.DelegateName + "(" + @delegate.Parameters + ");\n\t\t\t");
             }
 
-            string out_path = EditorPrefs.GetString("out_path").Replace("Adapter", "Bugfix") + "/DelegateDefines.cs";
+            string out_path = PathConfig.GetPath(ILPath.AdapterOutputPath).Replace("Adapter", "Bugfix") + "/DelegateDefines.cs";
             //模板路径
-            var tmpdPath = Application.dataPath + "/ThirdParty/ILRuntime/Editor/Adapter/Template/bugfix_delegate_defines.tmpd";
+            var tmpdPath = PathConfig.GetPath(ILPath.TemplatePath) + "/bugfix_delegate_defines.tmpd";//Application.dataPath + "/ThirdParty/ILRuntime/Editor/Adapter/Template/bugfix_delegate_defines.tmpd";
             BugfixFileManager manager = new BugfixFileManager(tmpdPath);
             manager.SetKeyValue("{$Namespace}", "ILRuntime");
             manager.SetKeyValue("{$DelegateDefines}", content.ToString());

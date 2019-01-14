@@ -43,7 +43,7 @@ namespace CodeGenerationTools.Generator
         /// </summary>
         private void LoadTemplates()
         {
-            var tmpdPath = Application.dataPath + "/ThirdParty/ILRuntime/Editor/Adapter/Template/";
+            var tmpdPath = PathConfig.GetPath(ILPath.TemplatePath);// Application.dataPath + "/ThirdParty/ILRuntime/Editor/Adapter/Template/";
             _bugfixDelegateHelper = new BugfixDelegateHelperGenerator();
             _bugfixDelegateHelper.LoadTemplateFromFile(tmpdPath + "bugfix_helper.tmpd");
         }

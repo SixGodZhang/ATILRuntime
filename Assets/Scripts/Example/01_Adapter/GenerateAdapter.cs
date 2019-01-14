@@ -97,7 +97,7 @@ public class GenerateAdapter : MonoBehaviour
 
     void InitializeILRuntime()
     {
-        ILRuntime.ILRuntimeHelper.Init(Appdomain);
+        //ILRuntime.ILRuntimeHelper.Init(Appdomain);
     }
 
 

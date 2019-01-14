@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2b36ed79eaa0f444a8885bedc124a72, type: 3}
+  m_Name: pathconfig
+  m_EditorClassIdentifier: 
+  hotfixFolder: C:/Users/Administrator/Desktop/GithubWorkspace/ATILRuntime/ATILRuntime/Assets/Game/HotFix
+  adapter_output_path: C:/Users/Administrator/Desktop/GithubWorkspace/ATILRuntime/ATILRuntime/Assets/ThirdParty/ILRuntime/ILRuntime/Adapter
+  binding_output_path: 
+  main_assembly_path: C:/Users/Administrator/Desktop/GithubWorkspace/ATILRuntime/ATILRuntime/Library/ScriptAssemblies/Assembly-CSharp.dll
+  il_assembly_path: C:/Users/Administrator/Desktop/GithubWorkspace/ATILRuntime/ATILRuntime/Assets/Game/HotFix/Hotfixdll.bytes
+  template_path: C:/Users/Administrator/Desktop/GithubWorkspace/ATILRuntime/ATILRuntime/Assets/ThirdParty/ILRuntime/Editor/Adapter/Template
+  hot_bugfix_namespace: 

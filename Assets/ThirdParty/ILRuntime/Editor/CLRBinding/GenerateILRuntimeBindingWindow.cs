@@ -39,8 +39,8 @@ namespace GameFramework.Taurus
 
         private void OnEnable()
         {
-            _hotfix_path = EditorPrefs.GetString("hotfix_path");
-            _output_path = EditorPrefs.GetString("output_path");
+            _hotfix_path = PathConfig.GetPath(ILPath.ILAssemblyPath);
+            _output_path = PathConfig.GetPath(ILPath.BindingOutputPath);
         }
 
         private void OnGUI()
@@ -54,7 +54,7 @@ namespace GameFramework.Taurus
                 _output_path = EditorUtility.OpenFolderPanel("选择文件夹", string.IsNullOrWhiteSpace(_output_path) ? Application.dataPath : _output_path, "");
                 if (!string.IsNullOrWhiteSpace(_output_path))
                 {
-                    EditorPrefs.SetString("output_path", _output_path);
+                    PathConfig.SetPath(ILPath.BindingOutputPath, _output_path);
                 }
                 
             }
@@ -65,9 +65,12 @@ namespace GameFramework.Taurus
 
             if (GUILayout.Button("选择热更Assembly", GUILayout.Width(150), GUILayout.Height(20)))
             {
-                _hotfix_path = EditorUtility.OpenFilePanelWithFilters("选择程序集", Application.dataPath + "/Game/Hotfix", new string[] { "BYTES", "bytes" });
-                if(!string.IsNullOrWhiteSpace(_hotfix_path))
-                    EditorPrefs.SetString("hotfix_path", _hotfix_path);
+                string tempPath = Application.dataPath + "/Game/Hotfix";
+                tempPath = Directory.Exists(tempPath) ? tempPath : Application.dataPath;
+
+                _hotfix_path = EditorUtility.OpenFilePanelWithFilters("选择程序集", tempPath, new string[] { "BYTES", "bytes" });
+                if (!string.IsNullOrWhiteSpace(_hotfix_path))
+                    PathConfig.SetPath(ILPath.ILAssemblyPath, _hotfix_path);
             }
 
             if (GUILayout.Button("Analysis", GUILayout.Width(100), GUILayout.Height(20)))
@@ -92,7 +95,6 @@ namespace GameFramework.Taurus
         #region 函数
         private void AnalysisBinding_Click()
         {
-            Debug.Log(_output_path);
             ILRuntime.Runtime.Enviorment.AppDomain domain = new ILRuntime.Runtime.Enviorment.AppDomain();
             using (FileStream fs = new FileStream(_hotfix_path, FileMode.Open, FileAccess.Read))
             {

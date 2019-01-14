@@ -39,11 +39,13 @@ namespace CodeGenerationTools.Generator
                 try
                 {
                     Tuple<string, string> tuple = new Tuple<string, string>(assemblies[i].GetName().Name, assemblies[i].Location);
+                    //UnityEngine.Debug.Log("!!! " + assemblies[i].GetName().Name);
                     _assemblyList.Add(tuple);
                 }
                 catch (NotSupportedException ex)
                 {
-                    UnityEngine.Debug.Log(ex.Source);
+                    //no catch ,because assembly can be loaded from memory and can't found it's location. 
+                    //UnityEngine.Debug.LogError("Message: " + ex.Message + "\n Trace: " + ex.StackTrace);
                 }
             }
 

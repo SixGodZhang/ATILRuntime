@@ -54,7 +54,34 @@ Unity 2018.2.17f1 .NET Runtime4.X
 - 提供白名单的可视化添加
 - 完善单元测试的类型
 - 目前Bug修复，只能修复主工程的方法.后期添加对字段、属性的修改
-- 路径的数据持久化储存不使用EditorPrefs,因为不同工程之间数据会串，需要重新修改
+- 路径的数据持久化储存不使用EditorPrefs,因为不同工程之间数据会串，需要重新修改(已修复)
+
+
+## 2019.1.14
+修复Bug: 
+- 1.修复Adaptor生成时，命名空间出现需要手动修改的问题
+- 2.修改持久化路径的方式,通过asset来保存,不再使用EditorPref
+
+
+## 2018.12.27 
+更新一些注意事项:
+//1.
+在适配器自动生成工程中 过滤 Bugfix 生成的委托:
+用bugfix生成的委托实例,在我们进行适配器自动生成时需要忽略.具体修改如下:
+GenerateILRuntimeAdapterWindow.LoadILScriptAssemblyClick()中 注释 >>//如果是Debug类型的，需要手动注册并且转换<< 的命名空间修改为热更工程中注册委托实例的命名空间
+![修改命名空间名](https://github.com/SixGodZhang/ATILRuntime/blob/master/Images/modifynp.png)
+
+比如:
+在热更工程中，我若要修复主工程中的GameFramework.Taurus.TestMainHotfix.DoActionWithParams()方法,我在热更工程中则需要注册委托,如下所示:
+![注册修复的方法](https://github.com/SixGodZhang/ATILRuntime/blob/master/Images/register.png)
+如果命名空间与上图不一致,请在上面提到的地方修改，进行过滤
+
+//2.
+模板路径:
+考虑到有同学会改变工程的目录结构,模板路径可能会变化,所以生成出来的文件内容为空
+修改位置如下:
+GenerateILRuntimeAdapterWindow.LoadTemplates()
+![修改模板路径](https://github.com/SixGodZhang/ATILRuntime/blob/master/Images/templatePath.png)
 
 
 ## 结尾

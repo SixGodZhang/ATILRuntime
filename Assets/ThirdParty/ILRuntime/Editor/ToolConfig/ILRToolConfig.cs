@@ -8,9 +8,6 @@
 // <time> #2018/12/19 星期三 20:23:50# </time>
 //-----------------------------------------------------------------------
 
-using GameFramework.Taurus;
-using System;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
@@ -32,8 +29,11 @@ namespace GameFramework.Taurus
             }
         }
 
-        private string _injectAssembly;
         private string _hotfixFolder;
+        private string _templatePath;
+        private string _bugfixPath;
+
+
         //line
         private string _line = new string('_', 150);//分割线
         private WhiteTreeView _whiteTreeView;
@@ -43,8 +43,9 @@ namespace GameFramework.Taurus
         #region 周期函数
         private void OnEnable()
         {
-            _hotfixFolder = EditorPrefs.GetString("hotfixFolder");
-            _injectAssembly = EditorPrefs.GetString("InjectAssembly");
+            _hotfixFolder = PathConfig.GetPath(ILPath.HotfixFolder);
+            _templatePath = PathConfig.GetPath(ILPath.TemplatePath);
+            _bugfixPath = PathConfig.GetPath(ILPath.HotBugfixNameSpace);
             if (m_TreeViewState == null)
                 m_TreeViewState = new TreeViewState();
 
@@ -62,20 +63,23 @@ namespace GameFramework.Taurus
                 _hotfixFolder = EditorUtility.OpenFolderPanel("选择文件夹", Application.dataPath, "");
                 if (!string.IsNullOrWhiteSpace(_hotfixFolder))
                 {
-                    EditorPrefs.SetString("hotfixFolder", _hotfixFolder);
+                    PathConfig.SetPath(ILPath.HotfixFolder, _hotfixFolder);
                 }
             }
             EditorGUILayout.EndHorizontal();
             EditorGUILayout.Space();
             EditorGUILayout.BeginHorizontal();
-            _injectAssembly = EditorGUILayout.TextField("Inject DLL Path: ", _injectAssembly);
+            _templatePath = EditorGUILayout.TextField("模板路径: ", _templatePath);
             if (GUILayout.Button("select", GUILayout.Width(100), GUILayout.Height(20)))
             {
-                string path = Application.dataPath.Replace("Assets", "") + "Library\\ScriptAssemblies";
-                _injectAssembly = EditorUtility.OpenFilePanelWithFilters("select Inject Assembly", path,
-                    new string[] { "All files", "dll" });
-                if (!string.IsNullOrWhiteSpace(_injectAssembly))
-                    EditorPrefs.SetString("InjectAssembly", _injectAssembly);
+                string tempPath = PathConfig.GetPath(ILPath.TemplatePath);//Application.dataPath + "/ThirdParty/ILRuntime/Editor/Adapter/Template";
+                //tempPath = Direc
+                _templatePath = EditorUtility.OpenFolderPanel("select Template Path", Application.dataPath, "");
+                if (!string.IsNullOrWhiteSpace(_templatePath))
+                {
+                    _templatePath = _templatePath + "/";//folder
+                    PathConfig.SetPath(ILPath.TemplatePath, _templatePath);
+                }
             }
             EditorGUILayout.EndHorizontal();
 
@@ -107,6 +111,17 @@ namespace GameFramework.Taurus
             window.maxSize = new Vector2(1000, 654);
             window.Show();
         }
+
+        /// <summary>
+        /// 清楚之前版本存储在EditorPref中的所有键值对
+        /// </summary>
+        //[MenuItem("ILRuntime/ClearILRConfig", false, 10)]
+        //static void ClearILRConfig()
+        //{
+        //    EditorPrefs.DeleteAll();
+        //    Debug.Log("!!! Clear ILRConfig Command end...");
+        //}
+
         #endregion
 
         #region 内部类
