@@ -51,5 +51,8 @@ namespace GameFramework.Taurus
         [Header("热更修复的命名空间 路径")]
         public string hot_bugfix_namespace = "";
 
+        [Header("存储白名单的Json文件")]
+        public string white_list_json_path = "";
+
     }
 }

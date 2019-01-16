@@ -13,7 +13,8 @@ namespace GameFramework.Taurus
         MainAssemblyPath,
         ILAssemblyPath,
         TemplatePath,
-        HotBugfixNameSpace
+        HotBugfixNameSpace,
+        WhiteListJsonPath
     }
 
     public class PathConfig
@@ -52,6 +53,12 @@ namespace GameFramework.Taurus
             {
                 asset = AssetDatabase.LoadAssetAtPath<PathConfigAsset>(_assetPath);
             }
+
+            //设置一些默认路径
+            if (asset != null)
+            {
+                SetPath(ILPath.WhiteListJsonPath, Application.dataPath + "/ThirdParty/ILRuntime/Editor/ConfigFiles/white_list.json");
+            }
         }
 
         /// <summary>
@@ -85,6 +92,9 @@ namespace GameFramework.Taurus
                     break;
                 case ILPath.HotBugfixNameSpace:
                     path = asset.template_path;
+                    break;
+                case ILPath.WhiteListJsonPath:
+                    path = asset.white_list_json_path;
                     break;
             }
 
@@ -121,6 +131,9 @@ namespace GameFramework.Taurus
                     break;
                 case ILPath.HotBugfixNameSpace:
                     asset.template_path = newPath;
+                    break;
+                case ILPath.WhiteListJsonPath:
+                    asset.white_list_json_path = newPath;
                     break;
             }
 

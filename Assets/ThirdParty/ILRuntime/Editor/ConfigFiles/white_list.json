@@ -1,0 +1,1 @@
+[{"children":[{"children":null,"depth":2,"displayName":"System.IDisposable","id":2}],"depth":1,"displayName":"mscorlib.dll","id":1},{"children":[{"children":null,"depth":2,"displayName":"MyTestLibrary.ITest","id":4},{"children":null,"depth":2,"displayName":"MyTestLibrary.TestBaset","id":5}],"depth":1,"displayName":"MyTestLibrary.dll","id":3}]

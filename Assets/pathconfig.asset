@@ -11,10 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2b36ed79eaa0f444a8885bedc124a72, type: 3}
   m_Name: pathconfig
   m_EditorClassIdentifier: 
-  hotfixFolder: C:/Users/Administrator/Desktop/GithubWorkspace/ATILRuntime/ATILRuntime/Assets/Game/HotFix
-  adapter_output_path: C:/Users/Administrator/Desktop/GithubWorkspace/ATILRuntime/ATILRuntime/Assets/ThirdParty/ILRuntime/ILRuntime/Adapter
+  hotfixFolder: 
+  adapter_output_path: 
   binding_output_path: 
-  main_assembly_path: C:/Users/Administrator/Desktop/GithubWorkspace/ATILRuntime/ATILRuntime/Library/ScriptAssemblies/Assembly-CSharp.dll
-  il_assembly_path: C:/Users/Administrator/Desktop/GithubWorkspace/ATILRuntime/ATILRuntime/Assets/Game/HotFix/Hotfixdll.bytes
-  template_path: C:/Users/Administrator/Desktop/GithubWorkspace/ATILRuntime/ATILRuntime/Assets/ThirdParty/ILRuntime/Editor/Adapter/Template
+  main_assembly_path: 
+  il_assembly_path: 
+  template_path: 
   hot_bugfix_namespace: 
+  white_list_json_path: 
