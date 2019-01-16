@@ -83,6 +83,9 @@ __代码注入:__
 ![](https://github.com/SixGodZhang/ATILRuntime/blob/master/Images/injectCode.png)  
 
 ## 项目更新日志
+### 2019.1.16
+- 将白名单写入Json,并持久化保存(为后期直接在界面添加白名单准备)
+
 ### 2019.1.14
 __修复Bug:__  
 - 1.修复Adaptor生成时，命名空间出现需要手动修改的问题
@@ -96,7 +99,7 @@ __修复Bug:__
 GenerateILRuntimeAdapterWindow.LoadILScriptAssemblyClick()中 注释 >>//忽略Bugfix模式的下的委托实例的适配器生成
 ![修改命名空间名](https://github.com/SixGodZhang/ATILRuntime/blob/master/Images/modifynp.png)  
 
-比如:  
+比如:  1.
 在热更工程中，我若要修复主工程中的GameFramework.Taurus.TestMainHotfix.DoActionWithParams()方法,我在热更工程中则需要注册委托,如下所示:  
 ![注册修复的方法](https://github.com/SixGodZhang/ATILRuntime/blob/master/Images/register.png)  
 如果命名空间与上图不一致,请在上面提到的地方修改，进行过滤  
